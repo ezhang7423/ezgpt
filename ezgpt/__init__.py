@@ -1,5 +1,5 @@
 # type: ignore[attr-defined]
-"""project_tag"""
+"""faster, simpler, more interpretable nanoGPT"""
 
 """ 
 Other global variables

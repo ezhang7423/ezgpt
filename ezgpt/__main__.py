@@ -8,8 +8,8 @@ import typer
 from rich.console import Console
 from typer_config.decorators import dump_json_config, use_json_config
 
-from research_project import LOG_DIR, version
-from research_project.example import hello
+from ezgpt import LOG_DIR, version
+from ezgpt.example import hello
 
 
 class Color(str, Enum):
@@ -23,7 +23,7 @@ class Color(str, Enum):
 
 app = typer.Typer(
     name="research_project",
-    help="project_tag",
+    help="faster, simpler, more interpretable nanoGPT",
     add_completion=False,
 )
 console = Console()

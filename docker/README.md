@@ -1,4 +1,4 @@
-# Docker for research_project
+# Docker for ezgpt
 
 ## Installation
 
@@ -15,7 +15,7 @@ make docker-build VERSION=latest
 ```
 
 You may provide name and version for the image.
-Default name is `IMAGE := research_project`.
+Default name is `IMAGE := ezgpt`.
 Default version is `VERSION := latest`.
 
 ```bash
@@ -27,7 +27,7 @@ make docker-build IMAGE=some_name VERSION=0.1.0
 ```bash
 docker run -it --rm \
    -v $(pwd):/workspace \
-   research_project bash
+   ezgpt bash
 ```
 
 ## How to clean up

@@ -1,7 +1,7 @@
 """Tests for hello function."""
 import pytest
 
-from research_project.example import hello
+from ezgpt.example import hello
 
 
 @pytest.mark.parametrize(
