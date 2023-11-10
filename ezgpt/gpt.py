@@ -53,7 +53,7 @@ class GPT(nn.Module):
                 )
 
         # report number of parameters
-        print("number of parameters: {:.2f}M".format(self.get_num_params() / 1e6))
+        print(f"number of parameters: {self.get_num_params() / 1e6:.2f}M")
 
     def forward(self, embeds, attention_mask=None):
         b, t, e = embeds.size()
@@ -62,9 +62,9 @@ class GPT(nn.Module):
         ), f"Cannot forward sequence of length {t}, block size is only {self.config.block_size}"
 
         # forward the GPT model itself
-        x = self.transformer.drop(embeds)
+        x = self.transformer.drop(embeds)  # apply dropout
         for block in self.transformer.h:
-            x = block(x, attention_mask=attention_mask)
+            x = block(x, attn_mask=attention_mask)
         x = self.transformer.ln_f(x)
 
         return x

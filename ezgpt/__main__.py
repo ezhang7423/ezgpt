@@ -11,11 +11,17 @@ from typer_config.decorators import dump_json_config, use_json_config
 from ezgpt import setup_experiment
 
 setup_experiment()
-from ezgpt import LOG_DIR, version
+
+import torch
+from eztils.typer import dataclass_option
+
+from ezgpt import DEBUG, LOG_DIR, version
+from ezgpt.gpt import GPT, GPTConfig
 
 app = typer.Typer(
     name="ezgpt",
     help="faster, simpler, more interpretable nanoGPT",
+    pretty_exceptions_enable=False,
     add_completion=False,
 )
 console = Console()
@@ -32,7 +38,8 @@ def version_callback(print_version: bool) -> None:
 @use_json_config()
 @dump_json_config(str(LOG_DIR / "config.json"))
 def main(
-    name: str = typer.Option(..., help="Person to greet."),
+    experiment_name: str = typer.Option("debug", prompt=not DEBUG),
+    gpt_config: dataclass_option(GPTConfig) = "{}",
     print_version: bool = typer.Option(
         None,
         "-v",
@@ -42,8 +49,14 @@ def main(
         help="Prints the version of the ezgpt package.",
     ),
 ) -> None:
-    """Print a greeting with a giving name."""
-    console.print(f"[bold green]{name}[/]")
+
+    gpt_config: GPTConfig = gpt_config
+
+    model = GPT(gpt_config)
+    print("Testing forward pass...")
+    test_input = torch.randn((1, 2, gpt_config.n_embd))
+    output = model(test_input)
+    print("Passed!")
 
 
 app()
