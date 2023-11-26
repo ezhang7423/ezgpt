@@ -8,18 +8,18 @@ import typer
 from rich.console import Console
 from typer_config.decorators import dump_json_config, use_json_config
 
-from ezgpt import setup_experiment
+from eztransformer import setup_experiment
 
 setup_experiment()
 
 import torch
 from eztils.typer import dataclass_option
 
-from ezgpt import DEBUG, LOG_DIR, version
-from ezgpt.gpt import GPT, GPTConfig
+from eztransformer import DEBUG, LOG_DIR, version
+from eztransformer.gpt import GPT, GPTConfig
 
 app = typer.Typer(
-    name="ezgpt",
+    name="eztransformer",
     help="faster, simpler, more interpretable nanoGPT",
     pretty_exceptions_enable=False,
     add_completion=False,
@@ -30,7 +30,7 @@ console = Console()
 def version_callback(print_version: bool) -> None:
     """Print the version of the package."""
     if print_version:
-        console.print(f"[yellow]ezgpt[/] version: [bold blue]{version}[/]")
+        console.print(f"[yellow]eztransformer[/] version: [bold blue]{version}[/]")
         raise typer.Exit()
 
 
@@ -46,7 +46,7 @@ def main(
         "--version",
         callback=version_callback,
         is_eager=True,
-        help="Prints the version of the ezgpt package.",
+        help="Prints the version of the eztransformer package.",
     ),
 ) -> None:
 

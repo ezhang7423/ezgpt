@@ -15,7 +15,7 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
-from ezgpt.gpt_utils import Block, LayerNorm
+from eztransformer.gpt_utils import Block, LayerNorm
 
 
 @dataclass

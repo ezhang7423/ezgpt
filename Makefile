@@ -7,7 +7,7 @@ CONDA := conda
 CONDA_ACTIVATE = source $$(conda info --base)/etc/profile.d/conda.sh ; conda activate ; conda activate
 
 #* Docker variables
-IMAGE := ezgpt
+IMAGE := eztransformer
 VERSION := latest
 
 #* Poetry
@@ -25,9 +25,9 @@ install:
 	! type -P poetry &> /dev/null && curl -sSL https://install.python-poetry.org | python3 -
 	! type -P $(CONDA) &> /dev/null && { echo "Please install conda (https://docs.conda.io/en/latest/miniconda.html)"; exit 1; }
 
-	# install ezgpt conda environment
-	$(CONDA) create -n ezgpt python=3.10 -y
-	$(CONDA_ACTIVATE) ezgpt
+	# install eztransformer conda environment
+	$(CONDA) create -n eztransformer python=3.10 -y
+	$(CONDA_ACTIVATE) eztransformer
 
 	type python
 
@@ -52,7 +52,7 @@ formatting: codestyle
 #* Linting
 .PHONY: test
 test:
-	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=ezgpt tests/
+	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=eztransformer tests/
 	mkdir -p assets/images
 	poetry run coverage-badge -o assets/images/coverage.svg -f
 
@@ -60,7 +60,7 @@ test:
 check-codestyle:
 	poetry run isort --diff --check-only --settings-path pyproject.toml ./
 	poetry run black --diff --check --config pyproject.toml ./
-	poetry run darglint --verbosity 2 ezgpt tests
+	poetry run darglint --verbosity 2 eztransformer tests
 
 .PHONY: mypy
 mypy:
@@ -70,7 +70,7 @@ mypy:
 check-safety:
 	poetry check
 	poetry run safety check --full-report
-	poetry run bandit -ll --recursive ezgpt tests
+	poetry run bandit -ll --recursive eztransformer tests
 
 .PHONY: lint
 lint: test check-codestyle mypy check-safety

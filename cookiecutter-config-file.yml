@@ -1,7 +1,7 @@
 # This file contains values from Cookiecutter
 
 default_context:
-  project_name: "ezgpt"
+  project_name: "eztransformer"
   project_description: "faster, simpler, more interpretable nanoGPT"
   organization: "ezhang7423"
   license: "MIT"
